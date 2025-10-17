@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Baron Chip Master</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050506;
+      --bg-alt: #0f0f17;
+      --fg: #f0f0f5;
+      --accent: #ef476f;
+      --accent-2: #06d6a0;
+      --accent-3: #118ab2;
+      --muted: #8f9bad;
+      font-family: 'Space Grotesk', 'Segoe UI', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, rgba(239, 71, 111, 0.15), transparent 50%),
+                  radial-gradient(circle at bottom right, rgba(17, 138, 178, 0.2), transparent 45%),
+                  var(--bg);
+      color: var(--fg);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    header {
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(3rem, 8vw, 5rem);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    header p.tagline {
+      margin: 1rem auto 0;
+      max-width: 45ch;
+      font-size: 1.1rem;
+      color: var(--muted);
+    }
+
+    main {
+      flex: 1 0 auto;
+      padding: 2rem 1.5rem 5rem;
+      display: grid;
+      gap: 2.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      width: min(1200px, 100%);
+      margin: 0 auto;
+    }
+
+    section {
+      background: linear-gradient(135deg, rgba(17, 138, 178, 0.1), rgba(6, 214, 160, 0.05));
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 200ms ease, border-color 200ms ease, box-shadow 200ms ease;
+      backdrop-filter: blur(4px);
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: -20% 40% 60% -20%;
+      background: radial-gradient(circle, rgba(239, 71, 111, 0.22), transparent 65%);
+      opacity: 0;
+      transition: opacity 250ms ease, transform 250ms ease;
+    }
+
+    section:hover {
+      transform: translateY(-6px);
+      border-color: rgba(255, 255, 255, 0.18);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    section:hover::before {
+      opacity: 1;
+      transform: translate3d(10px, -10px, 0);
+    }
+
+    section h2 {
+      margin: 0 0 1rem;
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    section p,
+    section li {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1.6rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      border-radius: 999px;
+      text-decoration: none;
+      color: var(--fg);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      box-shadow: 0 15px 35px rgba(239, 71, 111, 0.35);
+      transition: transform 200ms ease, box-shadow 200ms ease;
+      margin-top: 2rem;
+    }
+
+    .cta:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 22px 40px rgba(17, 138, 178, 0.45);
+    }
+
+    ul {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .badge-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .badge {
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .socials a {
+      color: var(--fg);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 0.45rem 0.9rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transition: border-color 200ms ease, background 200ms ease;
+    }
+
+    .socials a:hover {
+      border-color: var(--accent);
+      background: rgba(239, 71, 111, 0.1);
+    }
+
+    @media (max-width: 600px) {
+      header {
+        padding: 3rem 1.25rem 2.5rem;
+      }
+
+      main {
+        padding: 1.5rem 1.25rem 4rem;
+        gap: 2rem;
+      }
+
+      section {
+        padding: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Baron Chip Master</h1>
+    <p class="tagline">Architecte de beats électrisants &amp; inventeur d'ambiances nocturnes. Un univers cyberpunk, une énergie rave, un art de vivre.</p>
+    <a class="cta" href="mailto:contact@baronchipmaster.com">Booker Baron</a>
+  </header>
+
+  <main>
+    <section>
+      <h2>Manifesto</h2>
+      <p>Je fais vibrer les foules à coups de basses acides, d'électro industrielle et d'esthétiques numériques. Chaque set est une plongée dans une rave futuriste où l'on danse jusqu'à la transe.</p>
+    </section>
+
+    <section>
+      <h2>Specialités</h2>
+      <ul>
+        <li>Hybridation techno hardcore &amp; breakcore</li>
+        <li>Live machines &amp; performances modulaires</li>
+        <li>Direction artistique pour soirées underground</li>
+        <li>Sound design cyberpunk pour jeux &amp; courts-métrages</li>
+      </ul>
+      <div class="badge-grid">
+        <span class="badge">140 BPM +</span>
+        <span class="badge">Hardwave</span>
+        <span class="badge">Synths Analogiques</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Dates Marquantes</h2>
+      <ul>
+        <li>Résident @ Nexus Club - Paris</li>
+        <li>Guest DJ @ Reactor Festival - Berlin</li>
+        <li>Opening set pour Void Runner - Bruxelles</li>
+        <li>Créateur du collectif <strong>Quantum Cour des Miracles</strong></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Releases</h2>
+      <p>Explorations sonores disponibles sur toutes les plateformes.</p>
+      <div class="badge-grid">
+        <span class="badge">EP &laquo; Overclock &raquo;</span>
+        <span class="badge">Single &laquo; Neon Surge &raquo;</span>
+        <span class="badge">Collab &laquo; Rave Architects &raquo;</span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Services</h2>
+      <ul>
+        <li>Live set sur-mesure pour clubs et festivals</li>
+        <li>Sound design pour expériences immersives</li>
+        <li>Coaching &amp; masterclass DJing &amp; MAO</li>
+        <li>Consulting image &amp; scénographie digitale</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>Envie de construire une nuit mémorable ? Contacte-moi.</p>
+      <div class="socials">
+        <a href="https://instagram.com/baronchipmaster" target="_blank" rel="noreferrer">Instagram</a>
+        <a href="https://soundcloud.com/baronchipmaster" target="_blank" rel="noreferrer">SoundCloud</a>
+        <a href="https://t.me/baronchipmaster" target="_blank" rel="noreferrer">Telegram</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; <span id="year"></span> Baron Chip Master. Vibrations nocturnes &amp; culture rave.
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
